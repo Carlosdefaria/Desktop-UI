@@ -98,7 +98,7 @@ web_button.pack(pady=10)
 
 info_label = Label(
     root,
-    text="🏀🎯🎮 Tu cancha digital 🏀🎯🎮",
+    text="🏀🎯🎮 Tu cancha digital. 🏀🎯🎮",
     font=("Helvetica", 14),
     bg="#2e7d32",
     fg="white"
