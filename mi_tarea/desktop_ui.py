@@ -1,4 +1,3 @@
-
 from tkinter import Tk, Button, Label, PhotoImage, messagebox
 import subprocess
 import threading
@@ -104,5 +103,6 @@ info_label = Label(
     fg="white"
 )
 info_label.pack(side="bottom", pady=30)
+
 
 root.mainloop()
