@@ -7,6 +7,7 @@ import http.server
 import socketserver
 from datetime import datetime
 
+
 # Configuración
 PORT = 8000
 WEB_DIR = "pagina_web"
@@ -36,11 +37,12 @@ def abrir_sofascore():
 
 def aplicar_hover(boton, color_base, color_hover):
     def on_enter(e):
-        e.widget.config(bg=color_hover)
+        e.widget.config(bg=color_hover, cursor="hand2")
     def on_leave(e):
-        e.widget.config(bg=color_base)
+        e.widget.config(bg=color_base, cursor="")
     boton.bind("<Enter>", on_enter)
     boton.bind("<Leave>", on_leave)
+
 
 
 # Función para lanzar la web como servidor local
@@ -76,6 +78,7 @@ root.geometry("800x600")
 root.configure(bg="#2e7d32")
 
 
+
 # Cargar y mostrar imagen
 if os.path.exists(OLYMPICS):
     logo_img = PhotoImage(file=OLYMPICS)
@@ -85,7 +88,7 @@ if os.path.exists(OLYMPICS):
 
 
 hora_label = Label(root, bg="#2e7d32", fg="white", font=("Segoe UI", 10))
-hora_label.pack(side="bottom")
+hora_label.pack(side="top")
 actualizar_hora()
 
 
@@ -107,7 +110,8 @@ shell_button = Button(
     boton_frame,
     text="⚽ Open SPORTos' Shell",
     font=("Segoe UI", 16, "bold"),
-    relief="raised", bd=4,
+    relief="flat", bd=4,
+    highlightthickness=0,
     bg="#1b5e20",
     fg="white",
     padx=18,
@@ -122,7 +126,8 @@ web_button = Button(
     boton_frame,
     text="🌐 Open SPORTos' Web",
     font=("Segoe UI", 16, "bold"),
-    relief="raised", bd=4,
+    relief="flat", bd=4,
+    highlightthickness=0,
     bg="#1565c0",
     fg="white",
     padx=22,
@@ -137,7 +142,8 @@ sofascore_button = Button(
     boton_frame,
     text="📊 Live Match Results",
     font=("Segoe UI", 16, "bold"),
-    relief="raised", bd=4,
+    relief="flat", bd=4,
+    highlightthickness=0,
     bg="#c62828",
     fg="white",
     padx=33,
