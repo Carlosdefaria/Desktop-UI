@@ -1,10 +1,12 @@
-from tkinter import Tk, Button, Label, PhotoImage, messagebox
+from tkinter import Tk, Button, Label, PhotoImage, messagebox, Frame
 import subprocess
 import threading
 import webbrowser
 import os
 import http.server
 import socketserver
+from datetime import datetime
+
 
 
 # Configuración
@@ -13,7 +15,7 @@ WEB_DIR = "pagina_web"
 HOME_PAGE = "home.html"
 SHELL_SCRIPT = "sportsos.sh"
 TERMINAL_COMMAND = ["wsl", "bash", SHELL_SCRIPT]
-OLYMPIC_LOGO = "olympics.png"
+olympics = "olympics.png"
 
 
 # Función para lanzar la shell
@@ -25,6 +27,22 @@ def launch_shell():
         subprocess.Popen(TERMINAL_COMMAND)
     except Exception as e:
         messagebox.showerror("Error", f"No se pudo lanzar la shell:\n{e}")
+        
+        
+def abrir_sofascore():
+    try:
+        webbrowser.open("https://www.sofascore.com")
+    except Exception as e:
+        messagebox.showerror("Error", f"No se pudo abrir SofaScore:\n{e}")
+
+
+def aplicar_hover(boton, color_base, color_hover):
+    def on_enter(e):
+        e.widget.config(bg=color_hover)
+    def on_leave(e):
+        e.widget.config(bg=color_base)
+    boton.bind("<Enter>", on_enter)
+    boton.bind("<Leave>", on_leave)
 
 
 # Función para lanzar la web como servidor local
@@ -47,6 +65,12 @@ def launch_web():
         messagebox.showerror("Error", f"No se pudo abrir el navegador:\n{e}")
 
 
+def actualizar_hora():
+    hora_actual = datetime.now().strftime("%H:%M:%S")
+    hora_label.config(text=f"🕒 {hora_actual}")
+    root.after(1000, actualizar_hora)
+
+
 # UI
 root = Tk()
 root.title("SPORTos Desktop UI")
@@ -54,55 +78,89 @@ root.geometry("800x600")
 root.configure(bg="#2e7d32")
 
 
-# Cargar y mostrar imagen olímpica
-if os.path.exists(OLYMPIC_LOGO):
-    logo_img = PhotoImage(file=OLYMPIC_LOGO)
+# Cargar y mostrar imagen
+if os.path.exists(olympics):
+    logo_img = PhotoImage(file=olympics)
     logo_label = Label(root, image=logo_img, bg="#2e7d32")
     logo_label.image = logo_img  # mantener referencia
     logo_label.pack(pady=(10, 5))
 
+
+hora_label = Label(root, bg="#2e7d32", fg="white", font=("Segoe UI", 10))
+hora_label.pack(side="bottom")
+actualizar_hora()
+
+
 title_label = Label(
     root,
-    text="🏆 ¡Bienvenido de nuevo a SPORTos! 🏆",
-    font=("Helvetica", 24, "bold"),
+    text="🏆 ¡WELCOME to SPORTos! 🏆",
+    font=("Segoe UI Black", 24),
     bg="#2e7d32",
     fg="white",
     pady=20
 )
 title_label.pack()
 
+boton_frame = Frame(root, bg="#2e7d32")
+boton_frame.pack(pady=10)
+
 shell_button = Button(
-    root,
-    text="⚽ Abrir Shell SPORTos",
-    font=("Helvetica", 16, "bold"),
+    boton_frame,
+    text="⚽ Open SPORTos' Shell",
+    font=("Segoe UI", 16, "bold"),
+    relief="raised", bd=4,
     bg="#1b5e20",
     fg="white",
-    padx=20,
+    padx=18,
     pady=10,
     command=launch_shell
 )
-shell_button.pack(pady=20)
+shell_button.pack(pady=8)
+aplicar_hover(shell_button,"#1b5e20", "#388e3c")
+
 
 web_button = Button(
-    root,
-    text="🌐 Abrir Web de SPORTos",
-    font=("Helvetica", 16, "bold"),
+    boton_frame,
+    text="🌐 Open SPORTos' Web",
+    font=("Segoe UI", 16, "bold"),
+    relief="raised", bd=4,
     bg="#1565c0",
     fg="white",
-    padx=20,
+    padx=22,
     pady=10,
     command=launch_web
 )
-web_button.pack(pady=10)
+web_button.pack(pady=8)
+aplicar_hover(web_button,"#1565c0", "#1e88e5")
 
-info_label = Label(
-    root,
-    text="🏀🎯🎮 Tu cancha digital. 🏀🎯🎮",
-    font=("Helvetica", 14),
-    bg="#2e7d32",
-    fg="white"
+
+sofascore_button = Button(
+    boton_frame,
+    text="📊 Live Match Results",
+    font=("Segoe UI", 16, "bold"),
+    relief="raised", bd=4,
+    bg="#c62828",
+    fg="white",
+    padx=33,
+    pady=10,
+    command=abrir_sofascore
 )
-info_label.pack(side="bottom", pady=30)
+sofascore_button.pack(pady=8)
+aplicar_hover(sofascore_button, "#c62828", "#e53935")
 
+exit_button = Button(boton_frame, text="❌ Exit", bg="#424242", fg="white", command=root.destroy)
+exit_button.pack(pady=8)
+
+
+#Cinfuguracion del Pie de pagina
+footer = Label(         
+    root,
+    text="© 2025 SPORTos - Todos los derechos reservados",
+    font=("Segoe UI", 10),
+    bg="#1b5e20",
+    fg="white",
+    pady=10
+)
+footer.pack(side="bottom", fill="x")
 
 root.mainloop()
