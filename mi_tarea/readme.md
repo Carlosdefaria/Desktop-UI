@@ -1,7 +1,7 @@
 
 # 🖥️ SPORTos Desktop UI - Explicación del Código
 
-Este documento explica **paso a paso** cada parte del código de la aplicación `desktop_ui_server_button.py` para que entiendas todo lo que hace tu sistema SPORTos.
+Este documento explica **paso a paso** algunas parte del código de la aplicación `desktop_ui_server_button.py` para entender todo lo se hace.
 
 ---
 
@@ -97,8 +97,6 @@ Es la **función que se ejecuta** cuando haces clic en el botón.
 
 ---
 
-## 🔸 `web_button`
-Botón que lanza la página web abriendo el servidor local.
 
 ---
 
