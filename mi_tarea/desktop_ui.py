@@ -7,15 +7,13 @@ import http.server
 import socketserver
 from datetime import datetime
 
-
-
 # Configuración
 PORT = 8000
 WEB_DIR = "pagina_web"
 HOME_PAGE = "home.html"
 SHELL_SCRIPT = "sportsos.sh"
 TERMINAL_COMMAND = ["wsl", "bash", SHELL_SCRIPT]
-olympics = "olympics.png"
+OLYMPICS = "olympics.png"
 
 
 # Función para lanzar la shell
@@ -79,8 +77,8 @@ root.configure(bg="#2e7d32")
 
 
 # Cargar y mostrar imagen
-if os.path.exists(olympics):
-    logo_img = PhotoImage(file=olympics)
+if os.path.exists(OLYMPICS):
+    logo_img = PhotoImage(file=OLYMPICS)
     logo_label = Label(root, image=logo_img, bg="#2e7d32")
     logo_label.image = logo_img  # mantener referencia
     logo_label.pack(pady=(10, 5))
@@ -99,7 +97,8 @@ title_label = Label(
     fg="white",
     pady=20
 )
-title_label.pack()
+title_label.pack()  #lo posiciona en la ventana 
+
 
 boton_frame = Frame(root, bg="#2e7d32")
 boton_frame.pack(pady=10)
