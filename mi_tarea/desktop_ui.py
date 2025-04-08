@@ -8,7 +8,7 @@ import socketserver
 from datetime import datetime
 
 
-# settings
+#settings
 PORT = 8000
 WEB_DIR = "pagina_web"
 HOME_PAGE = "home.html"
@@ -24,7 +24,7 @@ def launch_shell():
     try:
         subprocess.Popen(TERMINAL_COMMAND)
     except Exception as e:
-        messagebox.showerror("Error", f"Failed to launch:\n{e}")
+        messagebox.showerror("Error", f"Failed to launch shell:\n{e}")
         
         
 def launch_sofascore():
